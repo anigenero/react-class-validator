@@ -1,0 +1,156 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": [
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "ignorePatterns": [
+    "src/graphql/generated.ts",
+    "src/assets/locale/generated.ts",
+    "src/__testutils__/*.ts",
+    "src/**/__tests__/*"
+  ],
+  "plugins": [
+    "import",
+    "prefer-arrow",
+    "react"
+  ],
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "arrow-body-style": "error",
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "camelcase": "error",
+    "comma-dangle": "off",
+    "complexity": "off",
+    "constructor-super": "error",
+    "curly": "error",
+    "default-case": "error",
+    "dot-notation": "error",
+    "eol-last": "error",
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
+    "guard-for-in": "error",
+    "id-blacklist": [
+      "error",
+      "any",
+      "Number",
+      "number",
+      "String",
+      "string",
+      "Boolean",
+      "boolean",
+      "Undefined",
+      "undefined"
+    ],
+    "id-match": "error",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "max-classes-per-file": [
+      "error",
+      1
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 140
+      }
+    ],
+    "new-parens": "error",
+    "no-bitwise": "error",
+    "no-caller": "error",
+    "no-cond-assign": "error",
+    "no-console": [
+      "error",
+      {
+        "allow": [
+          "warn",
+          "dir",
+          "timeLog",
+          "assert",
+          "clear",
+          "count",
+          "countReset",
+          "group",
+          "groupEnd",
+          "table",
+          "dirxml",
+          "groupCollapsed",
+          "Console",
+          "profile",
+          "profileEnd",
+          "timeStamp",
+          "context"
+        ]
+      }
+    ],
+    "no-debugger": "error",
+    "no-empty": "error",
+    "no-eval": "error",
+    "no-fallthrough": "error",
+    "no-invalid-this": "off",
+    "no-multiple-empty-lines": "error",
+    "no-new-wrappers": "error",
+    "no-redeclare": "error",
+    "no-shadow": [
+      "error",
+      {
+        "hoist": "all"
+      }
+    ],
+    "no-throw-literal": "error",
+    "no-trailing-spaces": "off",
+    "no-undef-init": "error",
+    "no-underscore-dangle": "off",
+    "no-unsafe-finally": "error",
+    "no-unused-expressions": "error",
+    "no-unused-labels": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "one-var": [
+      "error",
+      "never"
+    ],
+    "prefer-arrow/prefer-arrow-functions": "warn",
+    "prefer-const": "error",
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
+    ],
+    "radix": "error",
+    "react/prop-types": "off",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "asyncArrow": "always",
+        "named": "never"
+      }
+    ],
+    "spaced-comment": "error",
+    "use-isnan": "error",
+    "valid-typeof": "off"
+  }
+}

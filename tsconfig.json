@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist/",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "declarationDir": "./dist/",
+    "declarationMap": false,
+    "inlineSourceMap": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "/**/*.spec.ts",
+    "/**/*.spec.tsx"
+  ],
+  "include": [
+    "./src/**/*"
+  ]
+}
+

@@ -1,0 +1,10 @@
+src/
+node_modules/
+
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+
+.eslintrc.json
+.gitignore
+.travis.yml
+tsconfig.json
