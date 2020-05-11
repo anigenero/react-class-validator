@@ -8,7 +8,9 @@ script:
 
 deploy:
   skip_cleanup: true
+  tag: next
   on:
+    branch: master
     tags: true
   provider: npm
   email: robin@anigenero.com

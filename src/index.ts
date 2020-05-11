@@ -8,7 +8,7 @@ type Newable<T> = {
 type ValidationErrorMap<T, K extends keyof T> = { [key in K]?: string };
 type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
 type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) => Promise<boolean>;
-type UseValidationResult<T, K extends keyof T> = { validate: ValidationFunction<T, K>, errors: ValidationErrorMap<T, K> };
+type UseValidationResult<T, K extends keyof T> = [ValidationFunction<T, K>, ValidationErrorMap<T, K>]; // { validate: ValidationFunction<T, K>, errors: ValidationErrorMap<T, K> };
 
 export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>): UseValidationResult<T, K> => {
 
@@ -51,9 +51,6 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
 
     };
 
-    return {
-        validate: validateCallback,
-        errors: validationErrors
-    };
+    return [validateCallback, validationErrors];
 
 };
