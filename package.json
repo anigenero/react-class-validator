@@ -1,6 +1,6 @@
 {
   "name": "react-class-validator",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "React hook for validation with class-validator",
   "main": "dist/index.js",
   "scripts": {

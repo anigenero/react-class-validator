@@ -17,6 +17,9 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
     const validateCallback: ValidationFunction<T, K> = async (payload, filter: K[] = []) => {
 
         let errors = await validate(Object.assign(new (validationClass as any)(), payload));
+
+        console.dir(errors);
+
         if (errors.length === 0) {
 
             setErrors({});
