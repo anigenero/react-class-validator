@@ -11,6 +11,21 @@ Easy-to-use React hook for validating forms with the [class-validator](https://g
 npm install --save react-class-validator
 ```
 
+```typescript
+
+const validatorOptions: ValidatorContextOptions = {
+    onErrorMessage: (error): string => {
+        // custom error message handling (localization, etc)
+    }
+}
+
+render((
+    <ValidatorContext options={validatorOptions}>
+        <MyComponent />
+    </ValidatorContext>
+), document.getElementById('root'))
+```
+
 ## Usage
 
 ```typescript
@@ -32,7 +47,7 @@ class LoginValidation {
 ```
 
 ```typescript jsx
-const LoginForm = () => {
+const MyComponent = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

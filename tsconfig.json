@@ -26,7 +26,7 @@
     "/**/*.spec.tsx"
   ],
   "include": [
-    "./src/**/*"
+    "./src/index.ts"
   ]
 }
 
