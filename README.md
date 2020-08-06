@@ -73,7 +73,7 @@ const MyComponent = () => {
             {/* show error */}
             {errors.username && (
                 <div className="error">
-                    {errors.username}
+                    {errors.username.map((message) => <strong>message</strong>)}
                 </div>
             )}
 
