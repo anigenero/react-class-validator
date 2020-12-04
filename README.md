@@ -20,16 +20,24 @@ const validatorOptions: ValidatorContextOptions = {
 }
 
 render((
-    <ValidatorContext options={validatorOptions}>
+    <ValidatorProvider options={validatorOptions}>
         <MyComponent />
-    </ValidatorContext>
+    </ValidatorProvider>
 ), document.getElementById('root'))
+```
+
+## Default onErrorMessage behavior
+The default behavior is to flatten all error constraints for each attribute.
+```typescript
+const _getDefaultContextOptions = (): ValidatorContextOptions => ({
+    onErrorMessage: (error) => Object.keys(error.constraints).map((key) => error.constraints[key])
+});
 ```
 
 ## Usage
 
 ```typescript
-import {IsNotEmpty} from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 class LoginValidation {
 
