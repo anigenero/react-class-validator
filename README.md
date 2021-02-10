@@ -3,7 +3,6 @@ Easy-to-use React hook for validating forms with the [class-validator](https://g
 
 [![Build Status](https://travis-ci.org/anigenero/react-class-validator.svg?branch=master)](https://travis-ci.org/anigenero/react-class-validator)
 [![codecov](https://codecov.io/gh/anigenero/react-class-validator/branch/master/graph/badge.svg)](https://codecov.io/gh/anigenero/react-class-validator)
-[![dependencies](https://david-dm.org/anigenero/react-class-validator.svg)](https://david-dm.org/anigenero/react-class-validator.svg)
 
 ## Installation
 
