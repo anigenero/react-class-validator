@@ -13,8 +13,7 @@ module.exports = {
         '<rootDir>/jest.setup.ts'
     ],
     transform: {
-        '^.+\\.(js|jsx)?$': 'babel-jest',
-        '\\.(gql|graphql)$': '<rootDir>/jest.graphql.js'
+        '^.+\\.(js|jsx)?$': 'babel-jest'
     },
     transformIgnorePatterns: ['<rootDir>/node_modules/'],
     testEnvironment: 'jest-environment-jsdom-global',
