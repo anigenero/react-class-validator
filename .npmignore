@@ -1,6 +1,7 @@
 .idea/
 src/
 node_modules/
+coverage/
 
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md

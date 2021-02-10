@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`context provider should mount correctly 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onChange={[Function]}
+    value=""
+  />
+  <input
+    id="lname-input"
+    onChange={[Function]}
+    value=""
+  />
+</form>
+`;
+
+exports[`context provider should mount correctly 2`] = `null`;

@@ -17,7 +17,11 @@
     "validation",
     "form"
   ],
-  "author": "anigenero",
+  "author": {
+    "name": "Robin Schultz",
+    "email": "robin@anigenero.com",
+    "url": "https://github.com/anigenero"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/anigenero/react-class-validator/issues"
@@ -27,20 +31,28 @@
     "react": "^17.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@types/react": "^16.9.49",
-    "@typescript-eslint/parser": "^4.1.0",
+    "@babel/core": "^7.12.13",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.20",
+    "@types/react": "^16.14.3",
+    "@types/react-test-renderer": "^17.0.0",
+    "@typescript-eslint/parser": "^4.15.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.1.0",
-    "eslint": "^7.8.1",
+    "eslint": "^7.19.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-prefer-arrow": "^1.2.2",
-    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-react": "^7.22.0",
     "jest": "^26.4.2",
     "jest-cli": "^26.4.2",
+    "jest-environment-jsdom-global": "^2.0.4",
     "react": "^17.0.1",
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2",
-    "webpack": "^4.44.1",
+    "react-test-renderer": "^17.0.1",
+    "ts-jest": "^26.5.1",
+    "ts-loader": "^8.0.16",
+    "typescript": "^4.1.4",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {

@@ -4,7 +4,10 @@ node_js:
 
 script:
   - npm run lint
+  - npm test -- --coverage
   - npm run build
+
+after_success: bash <(curl -s https://codecov.io/bash)
 
 deploy:
   skip_cleanup: true
