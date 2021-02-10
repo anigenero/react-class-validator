@@ -7,15 +7,117 @@ exports[`context provider should mount correctly 1`] = `
 >
   <input
     id="fname-input"
+    onBlur={[Function]}
     onChange={[Function]}
     value=""
   />
   <input
     id="lname-input"
+    onBlur={[Function]}
     onChange={[Function]}
     value=""
   />
 </form>
 `;
 
-exports[`context provider should mount correctly 2`] = `null`;
+exports[`context validation error custom handler 1`] = `
+<ValidatorProvider
+  options={
+    Object {
+      "onErrorMessage": [Function],
+    }
+  }
+>
+  <ContactForm>
+    <form
+      id="form"
+      onSubmit={[Function]}
+    >
+      <input
+        id="fname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value=""
+      />
+      <input
+        id="lname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value=""
+      />
+    </form>
+  </ContactForm>
+</ValidatorProvider>
+`;
+
+exports[`context validation error on blur field 1`] = `
+<ValidatorProvider>
+  <ContactForm>
+    <form
+      id="form"
+      onSubmit={[Function]}
+    >
+      <input
+        id="fname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value=""
+      />
+      <input
+        id="lname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value=""
+      />
+    </form>
+  </ContactForm>
+</ValidatorProvider>
+`;
+
+exports[`context validation error on form submit 1`] = `
+<ValidatorProvider>
+  <ContactForm>
+    <form
+      id="form"
+      onSubmit={[Function]}
+    >
+      <input
+        id="fname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="Nick"
+      />
+      <input
+        id="lname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value=""
+      />
+    </form>
+  </ContactForm>
+</ValidatorProvider>
+`;
+
+exports[`context validation success on form submit 1`] = `
+<ValidatorProvider>
+  <ContactForm>
+    <form
+      id="form"
+      onSubmit={[Function]}
+    >
+      <input
+        id="fname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="Nick"
+      />
+      <input
+        id="lname-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        value="Fury"
+      />
+    </form>
+  </ContactForm>
+</ValidatorProvider>
+`;

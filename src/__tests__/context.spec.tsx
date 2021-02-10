@@ -1,12 +1,23 @@
+import 'reflect-metadata';
 import React, {FunctionComponent, useState} from "react";
 import {create} from "react-test-renderer";
-import {ValidatorProvider} from "../context";
-import {useValidation} from "../index";
-
+import {useValidation, ValidatorProvider} from "../index";
+import {mount} from "enzyme";
+import {IsNotEmpty} from "class-validator";
+import toJson from "enzyme-to-json";
 
 class ContactFormValidation {
+
+    @IsNotEmpty({
+        message: 'First name cannot be empty'
+    })
     public firstName: string;
+
+    @IsNotEmpty({
+        message: 'Last name cannot be empty'
+    })
     public lastName: string;
+
 }
 
 const ContactForm: FunctionComponent = () => {
@@ -21,8 +32,16 @@ const ContactForm: FunctionComponent = () => {
             evt.preventDefault();
             await validate({firstName, lastName});
         }}>
-            <input id="fname-input" value={firstName} onChange={({target: {value}}) => setFirstName(value)}/>
-            <input id="lname-input" value={lastName} onChange={({target: {value}}) => setLastName(value)}/>
+            <input id="fname-input" value={firstName} onChange={({target: {value}}) => setFirstName(value)}
+                   onBlur={() => validate({firstName}, ['firstName'])}/>
+            {errorMessages.firstName && errorMessages.firstName.map((error, index) => (
+                <strong key={index}>{error}</strong>
+            ))}
+            <input id="lname-input" value={lastName} onChange={({target: {value}}) => setLastName(value)}
+                   onBlur={() => validate({lastName}, ['lastName'])}/>
+            {errorMessages.lastName && errorMessages.lastName.map((error, index) => (
+                <strong key={index}>{error}</strong>
+            ))}
         </form>
     );
 
@@ -42,13 +61,76 @@ describe('context', () => {
 
     });
 
-    it('provider should mount correctly', () => {
+    it('validation success on form submit', async () => {
 
-        const tree = create(
-            <ValidatorProvider/>
-        ).toJSON();
+        const wrapper = mount(
+            <ValidatorProvider>
+                <ContactForm/>
+            </ValidatorProvider>
+        );
 
-        expect(tree).toMatchSnapshot();
+        const firstNameInput = wrapper.find('#fname-input');
+        firstNameInput.simulate('change', {target: {value: 'Nick'}});
+
+        const lastNameInput = wrapper.find('#lname-input');
+        lastNameInput.simulate('change', {target: {value: 'Fury'}});
+
+        const form = wrapper.find('#form');
+        form.simulate('submit');
+
+        expect(toJson(wrapper)).toMatchSnapshot();
+
+    });
+
+    it('validation error on form submit', async () => {
+
+        const wrapper = mount(
+            <ValidatorProvider>
+                <ContactForm/>
+            </ValidatorProvider>
+        );
+
+        const firstNameInput = wrapper.find('#fname-input');
+        firstNameInput.simulate('change', {target: {value: 'Nick'}});
+
+        const form = wrapper.find('#form');
+        form.simulate('submit');
+
+        expect(toJson(wrapper)).toMatchSnapshot();
+
+    });
+
+    it('validation error on blur field', async () => {
+
+        const wrapper = mount(
+            <ValidatorProvider>
+                <ContactForm/>
+            </ValidatorProvider>
+        );
+
+        const firstNameInput = wrapper.find('#fname-input');
+        firstNameInput.simulate('blur');
+
+        expect(toJson(wrapper)).toMatchSnapshot();
+
+    });
+
+    it('validation error custom handler', async () => {
+
+        const wrapper = mount(
+            <ValidatorProvider options={{
+                onErrorMessage() {
+                    return ['this is a custom error']
+                }
+            }}>
+                <ContactForm/>
+            </ValidatorProvider>
+        );
+
+        const form = wrapper.find('#form');
+        form.simulate('submit');
+
+        expect(toJson(wrapper)).toMatchSnapshot();
 
     });
 
