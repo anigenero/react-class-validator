@@ -31,6 +31,7 @@ const ContactForm: FunctionComponent = () => {
         <form id="form" onSubmit={async (evt) => {
             evt.preventDefault();
             await validate({firstName, lastName});
+            await validate({firstName}, ["firstName"]);
         }}>
             <input id="fname-input" value={firstName} onChange={({target: {value}}) => setFirstName(value)}
                    onBlur={() => validate({firstName}, ['firstName'])}/>

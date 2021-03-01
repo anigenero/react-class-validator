@@ -36,7 +36,7 @@ const _getDefaultContextOptions = (): ValidatorContextOptions => ({
 ## Usage
 
 ```typescript
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsEmail } from "class-validator";
 
 class LoginValidation {
 
@@ -50,6 +50,11 @@ class LoginValidation {
     })
     public password: string;
 
+    @IsEmail({
+        message: 'Enter valid email'
+    })
+    public email: string
+
 }
 ```
 
@@ -58,8 +63,9 @@ const MyComponent = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
 
-    const {validate, errors} = useValidation(LoginValidation);
+    const [validate, errors] = useValidation(LoginValidation);
 
     return (
         <form onSubmit={async (evt) => {
@@ -67,15 +73,24 @@ const MyComponent = () => {
             evt.preventDefault();
 
             // `validate` will return true if the submission is valid
-            if (await validate({username, password})) {
+            if (await validate({username, password, email})) {
+                // ... handle valid submission
+            }
+
+            //(Optional) `validate` returns true if the submitted filter is valid 
+            if (await validate({username, password}, ["username", "password"])) {
                 // ... handle valid submission
             }
 
         }}>
 
             {/* use a filter so that the onBlur function will only validate username */}
-            <input value={username} onChange={({target: {value}}) => setUsername(value)}
-                onBlur={() => validate({username}, ['username'])}/>
+            <input 
+                value={username} 
+                onChange={({target: {value}}) => setUsername(value)}
+                onBlur={() => validate({username}, ['username'])}
+                valid={async () => await validate({username}, ['username'])} //(Optional) return true for valid username filter
+            />
 
             {/* show error */}
             {errors.username && (

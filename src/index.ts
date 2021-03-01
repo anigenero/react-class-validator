@@ -41,14 +41,12 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
                 {} as ValidationErrorMap<T, K>
             );
 
-            if (filter.length > 0) {
-                setErrors({
-                    ...validationErrors,
-                    ...validation
-                });
-            } else {
-                setErrors(validation);
+            setErrors(validation);
+
+            if(filter.length > 0 && errors.length === 0){
+                return true;
             }
+            
 
             return false;
 
