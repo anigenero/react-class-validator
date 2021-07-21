@@ -59,7 +59,7 @@ const MyComponent = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const {validate, errors} = useValidation(LoginValidation);
+    const [validate, errors] = useValidation(LoginValidation);
 
     return (
         <form onSubmit={async (evt) => {
