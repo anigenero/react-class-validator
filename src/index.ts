@@ -42,9 +42,13 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
             );
 
             if (filter.length > 0) {
-                setErrors({
-                    ...validationErrors,
-                    ...validation
+
+                setErrors(currentErrors => {
+                    filter.forEach(key => delete currentErrors[key])
+                    return {
+                        ...currentErrors,
+                        ...validation
+                    }
                 });
             } else {
                 setErrors(validation);
