@@ -91,6 +91,59 @@ const MyComponent = () => {
 
 ```
 
+### Usage With Formik
+
+`react-class-validator` easily integrates with [Formik](https://formik.org/). You can simply use the `validate` 
+function returned from `useValidation`, so long as the Formik fields are named the same as the keys in your validation 
+class. Individual fields will have to be validated with `onBlur` functionality.
+
+#### Formik error messages
+
+To display error messages without custom handling, messages will need to be flattened when working with Formik. Do this 
+by overriding the default `onErrorMessage`.
+
+```typescript
+const options: ValidatorContextOptions = {
+    onErrorMessage: (error) => Object.keys(error.constraints)
+        .map((accum, key) => `${accum}. ${error.constraints[key]}`, '')
+};
+```
+
+Then you can simply integrate with the default Formik flow.
+
+```typescript jsx
+export const Login: FunctionComponent = () => {
+
+    const [validate,] = useValidation(LoginValidation);
+
+    return (
+        <Formik initialValues={{username: '', password: ''}}
+                validateOnBlur
+                validateOnChange
+                validate={validate}>
+            {({values, errors, touched, handleChange, handleBlur}) => (
+                <Form>
+                    
+                    <label htmlFor="username">Username</label>
+                    <Field id="username" name="username" placeholder="Username" />
+
+                    {errors.username && touched.username ? (
+                        <div>{errors.username}</div>
+                    ) : null}
+                    
+                    {/* other fields */}
+                    
+                    <button type="submit">
+                        Submit
+                    </button>
+                    
+                </Form>
+            )}
+        </Formik>
+    );
+};
+```
+
 ## Contributors
 Library built and maintained by [Robin Schultz](http://anigenero.com)
 
