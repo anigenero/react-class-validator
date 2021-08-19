@@ -28,8 +28,7 @@
   },
   "homepage": "https://github.com/anigenero/react-class-validator#readme",
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
