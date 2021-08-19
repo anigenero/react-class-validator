@@ -34,6 +34,7 @@ jobs:
             README.md
 
   coverage:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - if: success()
@@ -48,6 +49,7 @@ jobs:
           path-to-lcov: coverage/lcov.info
 
   publish:
+    needs: build
     if: ${{ github.event_name == 'release' }}
     runs-on: ubuntu-latest
     steps:
