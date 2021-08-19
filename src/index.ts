@@ -42,10 +42,22 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
             );
 
             if (filter.length > 0) {
+
+                const filteredErrors =
+                    (Object.keys(validationErrors) as K[]).filter((key) =>
+                        !filter.includes(key)
+                    ).reduce((accum, key) => ({
+                        ...accum,
+                        [key]: validationErrors[key]
+                    }), {});
+
+                console.dir(filteredErrors);
+
                 setErrors({
-                    ...validationErrors,
+                    ...filteredErrors,
                     ...validation
                 });
+
             } else {
                 setErrors(validation);
             }
