@@ -1,6 +1,6 @@
 import {validate} from 'class-validator';
 import {useContext, useState} from 'react';
-import {ValidatorContext} from "./context";
+import {ValidatorContext, ValidatorContextOptions} from "./context";
 
 export {ValidatorProvider, ValidatorContextOptions, OnErrorMessageHandler} from './context';
 
@@ -8,16 +8,29 @@ type Newable<T> = {
     new(): T;
 } | Function;
 
+type ValidationOptions = Pick<ValidatorContextOptions, 'resultType'>;
 type ValidationErrorMap<T, K extends keyof T> = { [key in K]?: string[] };
 type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
-type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) => Promise<boolean>;
+type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) => Promise<ValidationErrorMap<T, K> | boolean>;
 type UseValidationResult<T, K extends keyof T> = [ValidationFunction<T, K>, ValidationErrorMap<T, K>];
 
-export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>): UseValidationResult<T, K> => {
+export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>, opts: ValidationOptions = {}): UseValidationResult<T, K> => {
 
-    const {onErrorMessage} = useContext(ValidatorContext);
+    const {onErrorMessage, resultType} = useContext(ValidatorContext);
+    opts = {
+        ...opts,
+        resultType: opts.resultType || resultType
+    }
 
     const [validationErrors, setErrors] = useState<ValidationErrorMap<T, K>>({});
+
+    const _resolve = (errors: ValidationErrorMap<T, K>) => {
+        if (errors && Object.keys(errors).length === 0 && errors.constructor === Object) {
+            return opts.resultType === 'boolean' ? true : errors;
+        } else {
+            return opts.resultType === 'boolean' ? false : errors;
+        }
+    }
 
     const validateCallback: ValidationFunction<T, K> = async (payload, filter: K[] = []) => {
 
@@ -25,7 +38,7 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
         if (errors.length === 0) {
 
             setErrors({});
-            return true;
+            return _resolve({});
 
         } else {
 
@@ -60,7 +73,7 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
                 setErrors(validation);
             }
 
-            return false;
+            return _resolve(validation);
 
         }
 

@@ -15,7 +15,8 @@ npm install --save react-class-validator
 const validatorOptions: ValidatorContextOptions = {
     onErrorMessage: (error): string => {
         // custom error message handling (localization, etc)
-    }
+    },
+    resultType: 'boolean' // default, can also be set to 'map'
 }
 
 render((
@@ -99,13 +100,12 @@ class. Individual fields will have to be validated with `onBlur` functionality.
 
 #### Formik error messages
 
-To display error messages without custom handling, messages will need to be flattened when working with Formik. Do this 
-by overriding the default `onErrorMessage`.
+To display error messages without custom handling, messages will need to be outputted as a map upon validation. 
+Do this by overriding the default `resultType` (you can also do this at the component-level).
 
 ```typescript
 const options: ValidatorContextOptions = {
-    onErrorMessage: (error) => Object.keys(error.constraints)
-        .map((accum, key) => `${accum}. ${error.constraints[key]}`, '')
+    resultType: 'map'
 };
 ```
 
@@ -114,14 +114,14 @@ Then you can simply integrate with the default Formik flow.
 ```typescript jsx
 export const Login: FunctionComponent = () => {
 
-    const [validate, errors] = useValidation(LoginValidation);
+    const [validate] = useValidation(LoginValidation);
 
     return (
         <Formik initialValues={{username: '', password: ''}}
                 validateOnBlur
                 validateOnChange
                 validate={validate}>
-            {({values, touched, handleChange, handleBlur}) => (
+            {({values, touched, errors, handleChange, handleBlur}) => (
                 <Form>
                     
                     <label htmlFor="username">Username</label>
