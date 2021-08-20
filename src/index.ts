@@ -51,8 +51,6 @@ export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>)
                         [key]: validationErrors[key]
                     }), {});
 
-                console.dir(filteredErrors);
-
                 setErrors({
                     ...filteredErrors,
                     ...validation

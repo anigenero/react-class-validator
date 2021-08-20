@@ -114,14 +114,14 @@ Then you can simply integrate with the default Formik flow.
 ```typescript jsx
 export const Login: FunctionComponent = () => {
 
-    const [validate,] = useValidation(LoginValidation);
+    const [validate, errors] = useValidation(LoginValidation);
 
     return (
         <Formik initialValues={{username: '', password: ''}}
                 validateOnBlur
                 validateOnChange
                 validate={validate}>
-            {({values, errors, touched, handleChange, handleBlur}) => (
+            {({values, touched, handleChange, handleBlur}) => (
                 <Form>
                     
                     <label htmlFor="username">Username</label>
