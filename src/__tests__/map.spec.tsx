@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-
 import React from "react";
 import {act, create} from "react-test-renderer";
 import {ValidatorProvider} from "../index";
@@ -10,7 +9,7 @@ describe('context', () => {
     it('provider should mount correctly', () => {
 
         const tree = create(
-            <ValidatorProvider>
+            <ValidatorProvider options={{resultType: 'map'}}>
                 <ContactForm/>
             </ValidatorProvider>
         ).toJSON();
@@ -22,7 +21,7 @@ describe('context', () => {
     it('validation success on form submit', async () => {
 
         const wrapper = create(
-            <ValidatorProvider>
+            <ValidatorProvider options={{resultType: 'map'}}>
                 <ContactForm/>
             </ValidatorProvider>
         );
@@ -51,7 +50,7 @@ describe('context', () => {
     it('validation error on form submit', async () => {
 
         const wrapper = create(
-            <ValidatorProvider>
+            <ValidatorProvider options={{resultType: 'map'}}>
                 <ContactForm/>
             </ValidatorProvider>
         );
@@ -75,7 +74,7 @@ describe('context', () => {
     it('validation error on blur field', async () => {
 
         const wrapper = create(
-            <ValidatorProvider>
+            <ValidatorProvider options={{resultType: 'map'}}>
                 <ContactForm/>
             </ValidatorProvider>
         );
@@ -95,7 +94,8 @@ describe('context', () => {
             <ValidatorProvider options={{
                 onErrorMessage() {
                     return ['this is a custom error']
-                }
+                },
+                resultType: 'map',
             }}>
                 <ContactForm/>
             </ValidatorProvider>

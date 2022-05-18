@@ -34,6 +34,25 @@ const getDefaultContextOptions = (): ValidatorContextOptions => ({
 });
 ```
 
+### react-intl
+When using libraries such as [react-intl](https://github.com/formatjs/formatjs), you don't have to modify the existing 
+`onErrorMessage` handler. Decorators are handled at source load, so you only need to include the `intl.formatMessage` in your message definition.
+
+```typescript
+class Person {
+
+    @IsEmail({}, {
+        message: intl.formatMessage(defineMessage({defaultMessage: 'Invalid email'}))
+    })
+    @IsNotEmpty({
+        message: intl.formatMessage(defineMessage({defaultMessage: 'Email cannot be empty'}))
+    })
+    public email: string;
+    
+}
+
+```
+
 ## Usage
 
 ```typescript
@@ -89,16 +108,15 @@ const MyComponent = () => {
     );
 
 };
-
 ```
 
-### Usage With Formik
+## Usage With Formik
 
 `react-class-validator` easily integrates with [Formik](https://formik.org/). You can simply use the `validate` 
 function returned from `useValidation`, so long as the Formik fields are named the same as the keys in your validation 
 class. Individual fields will have to be validated with `onBlur` functionality.
 
-#### Formik error messages
+### Formik error messages
 
 To display error messages without custom handling, messages will need to be outputted as a map upon validation. 
 Do this by overriding the default `resultType` (you can also do this at the component-level).

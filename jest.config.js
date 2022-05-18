@@ -3,6 +3,10 @@ module.exports = {
         'lcov',
         'html'
     ],
+    coveragePathIgnorePatterns: [
+        'node_modules',
+        '<rootDir>/src/__tests__'
+    ],
     moduleFileExtensions: [
         'ts',
         'tsx',
@@ -14,12 +18,7 @@ module.exports = {
     },
     transformIgnorePatterns: ['<rootDir>/node_modules/'],
     testEnvironment: 'jest-environment-jsdom-global',
-    coverageThreshold: {
-        global: {
-            branches: 80,
-            functions: 80,
-            lines: 80,
-            statements: 80
-        }
-    }
+    testMatch: [
+        '**/?(*.)+(spec|test).[jt]s?(x)'
+    ]
 };

@@ -27,7 +27,7 @@ export const useValidation = <T, K extends keyof T>(
 
     const [validationErrors, setErrors] = useState<ValidationErrorMap<T, K>>({});
 
-    const _resolve = (errors: ValidationErrorMap<T, K>) => {
+    const resolveErrors = (errors: ValidationErrorMap<T, K>) => {
         if (errors && Object.keys(errors).length === 0 && errors.constructor === Object) {
             return opts.resultType === 'boolean' ? true : errors;
         } else {
@@ -41,7 +41,7 @@ export const useValidation = <T, K extends keyof T>(
         if (errors.length === 0) {
 
             setErrors({});
-            return _resolve({});
+            return resolveErrors({});
 
         } else {
 
@@ -76,7 +76,7 @@ export const useValidation = <T, K extends keyof T>(
                 setErrors(validation);
             }
 
-            return _resolve(validation);
+            return resolveErrors(validation);
 
         }
 
