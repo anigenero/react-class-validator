@@ -55,6 +55,8 @@ class Person {
 
 ## Usage
 
+Create a class using validation decorators from `class-validator`.
+
 ```typescript
 import { IsNotEmpty } from "class-validator";
 
@@ -72,6 +74,8 @@ class LoginValidation {
 
 }
 ```
+
+Set up your form component to validate using your validation class.  
 
 ```typescript jsx
 const MyComponent = () => {
