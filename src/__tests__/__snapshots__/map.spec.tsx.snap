@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`context provider should mount correctly 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+</form>
+`;
+
+exports[`context validation error custom handler 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    this is a custom error
+  </strong>
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    this is a custom error
+  </strong>
+</form>
+`;
+
+exports[`context validation error on blur field 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    First name cannot be empty
+  </strong>
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+</form>
+`;
+
+exports[`context validation error on form submit 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Nick"
+  />
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    Last name cannot be empty
+  </strong>
+</form>
+`;
+
+exports[`context validation success on form submit 1`] = `
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Nick"
+  />
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Fury"
+  />
+</form>
+`;
