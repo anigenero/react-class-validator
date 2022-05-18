@@ -1,10 +1,9 @@
 import 'reflect-metadata';
+
 import React, {FunctionComponent, useState} from "react";
-import {create} from "react-test-renderer";
+import {act, create} from "react-test-renderer";
 import {useValidation, ValidatorProvider} from "../index";
-import {mount} from "enzyme";
 import {IsNotEmpty} from "class-validator";
-import toJson from "enzyme-to-json";
 
 class ContactFormValidation {
 
@@ -63,61 +62,77 @@ describe('context', () => {
 
     it('validation success on form submit', async () => {
 
-        const wrapper = mount(
+        const wrapper = create(
             <ValidatorProvider>
                 <ContactForm/>
             </ValidatorProvider>
         );
 
-        const firstNameInput = wrapper.find('#fname-input');
-        firstNameInput.simulate('change', {target: {value: 'Nick'}});
+        const firstNameInput = wrapper.root.findByProps({id: 'fname-input'});
+        await act(() =>
+            firstNameInput.props.onChange({target: {value: 'Nick'}})
+        );
 
-        const lastNameInput = wrapper.find('#lname-input');
-        lastNameInput.simulate('change', {target: {value: 'Fury'}});
+        const lastNameInput = wrapper.root.findByProps({id: 'lname-input'});
+        await act(() =>
+            lastNameInput.props.onChange({target: {value: 'Fury'}})
+        );
 
-        const form = wrapper.find('#form');
-        form.simulate('submit');
+        const form = wrapper.root.findByType('form');
+        await act(() =>
+            form.props.onSubmit({
+                preventDefault: jest.fn()
+            })
+        );
 
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.toJSON()).toMatchSnapshot();
 
     });
 
     it('validation error on form submit', async () => {
 
-        const wrapper = mount(
+        const wrapper = create(
             <ValidatorProvider>
                 <ContactForm/>
             </ValidatorProvider>
         );
 
-        const firstNameInput = wrapper.find('#fname-input');
-        firstNameInput.simulate('change', {target: {value: 'Nick'}});
+        const firstNameInput = wrapper.root.findByProps({id: 'fname-input'});
+        await act(() =>
+            firstNameInput.props.onChange({target: {value: 'Nick'}})
+        );
 
-        const form = wrapper.find('#form');
-        form.simulate('submit');
+        const form = wrapper.root.findByType('form');
+        await act(() =>
+            form.props.onSubmit({
+                preventDefault: jest.fn()
+            })
+        );
 
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.toJSON()).toMatchSnapshot();
 
     });
 
     it('validation error on blur field', async () => {
 
-        const wrapper = mount(
+        const wrapper = create(
             <ValidatorProvider>
                 <ContactForm/>
             </ValidatorProvider>
         );
 
-        const firstNameInput = wrapper.find('#fname-input');
-        firstNameInput.simulate('blur');
+        const firstNameInput = wrapper.root.findByProps({id: 'fname-input'});
+        await act(() =>
+            firstNameInput.props.onBlur()
+        );
 
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.toJSON()).toMatchSnapshot();
 
     });
 
     it('validation error custom handler', async () => {
 
-        const wrapper = mount(
+        const wrapper = create(
             <ValidatorProvider options={{
                 onErrorMessage() {
                     return ['this is a custom error']
@@ -127,10 +142,14 @@ describe('context', () => {
             </ValidatorProvider>
         );
 
-        const form = wrapper.find('#form');
-        form.simulate('submit');
+        const form = wrapper.root.findByType('form');
+        await act(() =>
+            form.props.onSubmit({
+                preventDefault: jest.fn()
+            })
+        );
 
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(wrapper.toJSON()).toMatchSnapshot();
 
     });
 

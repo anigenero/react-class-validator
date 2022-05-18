@@ -9,9 +9,6 @@ module.exports = {
         'js'
     ],
     preset: 'ts-jest',
-    setupFiles: [
-        '<rootDir>/jest.setup.ts'
-    ],
     transform: {
         '^.+\\.(js|jsx)?$': 'babel-jest'
     },

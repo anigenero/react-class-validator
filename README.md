@@ -10,7 +10,7 @@ Easy-to-use React hook for validating forms with the [class-validator](https://g
 npm install --save react-class-validator
 ```
 
-```typescript
+```typescript jsx
 
 const validatorOptions: ValidatorContextOptions = {
     onErrorMessage: (error): string => {
@@ -29,7 +29,7 @@ render((
 ## Default onErrorMessage behavior
 The default behavior is to flatten all error constraints for each attribute.
 ```typescript
-const _getDefaultContextOptions = (): ValidatorContextOptions => ({
+const getDefaultContextOptions = (): ValidatorContextOptions => ({
     onErrorMessage: (error) => Object.keys(error.constraints).map((key) => error.constraints[key])
 });
 ```

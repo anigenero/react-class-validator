@@ -21,103 +21,93 @@ exports[`context provider should mount correctly 1`] = `
 `;
 
 exports[`context validation error custom handler 1`] = `
-<ValidatorProvider
-  options={
-    Object {
-      "onErrorMessage": [Function],
-    }
-  }
+<form
+  id="form"
+  onSubmit={[Function]}
 >
-  <ContactForm>
-    <form
-      id="form"
-      onSubmit={[Function]}
-    >
-      <input
-        id="fname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value=""
-      />
-      <input
-        id="lname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value=""
-      />
-    </form>
-  </ContactForm>
-</ValidatorProvider>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    this is a custom error
+  </strong>
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    this is a custom error
+  </strong>
+</form>
 `;
 
 exports[`context validation error on blur field 1`] = `
-<ValidatorProvider>
-  <ContactForm>
-    <form
-      id="form"
-      onSubmit={[Function]}
-    >
-      <input
-        id="fname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value=""
-      />
-      <input
-        id="lname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value=""
-      />
-    </form>
-  </ContactForm>
-</ValidatorProvider>
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    First name cannot be empty
+  </strong>
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+</form>
 `;
 
 exports[`context validation error on form submit 1`] = `
-<ValidatorProvider>
-  <ContactForm>
-    <form
-      id="form"
-      onSubmit={[Function]}
-    >
-      <input
-        id="fname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value="Nick"
-      />
-      <input
-        id="lname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value=""
-      />
-    </form>
-  </ContactForm>
-</ValidatorProvider>
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Nick"
+  />
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <strong>
+    Last name cannot be empty
+  </strong>
+</form>
 `;
 
 exports[`context validation success on form submit 1`] = `
-<ValidatorProvider>
-  <ContactForm>
-    <form
-      id="form"
-      onSubmit={[Function]}
-    >
-      <input
-        id="fname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value="Nick"
-      />
-      <input
-        id="lname-input"
-        onBlur={[Function]}
-        onChange={[Function]}
-        value="Fury"
-      />
-    </form>
-  </ContactForm>
-</ValidatorProvider>
+<form
+  id="form"
+  onSubmit={[Function]}
+>
+  <input
+    id="fname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Nick"
+  />
+  <input
+    id="lname-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value="Fury"
+  />
+</form>
 `;

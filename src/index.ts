@@ -14,7 +14,10 @@ type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
 type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) => Promise<ValidationErrorMap<T, K> | boolean>;
 type UseValidationResult<T, K extends keyof T> = [ValidationFunction<T, K>, ValidationErrorMap<T, K>];
 
-export const useValidation = <T, K extends keyof T>(validationClass: Newable<T>, opts: ValidationOptions = {}): UseValidationResult<T, K> => {
+export const useValidation = <T, K extends keyof T>(
+    validationClass: Newable<T>,
+    opts: ValidationOptions = {}
+): UseValidationResult<T, K> => {
 
     const {onErrorMessage, resultType} = useContext(ValidatorContext);
     opts = {
