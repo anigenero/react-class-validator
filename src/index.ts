@@ -11,7 +11,8 @@ type Newable<T> = {
 type ValidationOptions = Pick<ValidatorContextOptions, 'resultType'>;
 type ValidationErrorMap<T, K extends keyof T> = { [key in K]?: string[] };
 type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
-type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) => Promise<ValidationErrorMap<T, K> | boolean>;
+type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) =>
+    Promise<ValidationErrorMap<T, K> | boolean>;
 type UseValidationResult<T, K extends keyof T> = [ValidationFunction<T, K>, ValidationErrorMap<T, K>];
 
 export const useValidation = <T, K extends keyof T>(
