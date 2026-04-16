@@ -28,7 +28,8 @@
   },
   "homepage": "https://github.com/anigenero/react-class-validator#readme",
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@swc/core": "^1.15.21",
@@ -44,8 +45,6 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-react": "^7.37.5",
     "jsdom": "^26.0.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
     "reflect-metadata": "^0.2.2",
     "typescript": "^6.0.2",
     "unplugin-swc": "^1.5.9",
