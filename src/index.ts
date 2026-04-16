@@ -2,7 +2,8 @@ import {validate} from 'class-validator';
 import {useContext, useState} from 'react';
 import {ValidatorContext, ValidatorContextOptions} from "./context";
 
-export {ValidatorProvider, ValidatorContextOptions, OnErrorMessageHandler} from './context';
+export {ValidatorProvider} from './context';
+export type {ValidatorContextOptions, OnErrorMessageHandler} from './context';
 
 type Newable<T> = {
     new(): T;
@@ -23,7 +24,7 @@ export const useValidation = <T, K extends keyof T>(
     const {onErrorMessage, resultType} = useContext(ValidatorContext);
     opts = {
         ...opts,
-        resultType: opts.resultType || resultType
+        resultType: opts.resultType ?? resultType ?? 'boolean'
     }
 
     const [validationErrors, setErrors] = useState<ValidationErrorMap<T, K>>({});
@@ -53,7 +54,7 @@ export const useValidation = <T, K extends keyof T>(
             const validation: ValidationErrorMap<T, K> = errors.reduce(
                 (acc, value) => ({
                     ...acc,
-                    [value.property as K]: onErrorMessage(value)
+                    [value.property as K]: onErrorMessage!(value)
                 }),
                 {} as ValidationErrorMap<T, K>
             );

@@ -1,5 +1,5 @@
 import {IsNotEmpty} from "class-validator";
-import React, {FunctionComponent, useState} from "react";
+import {FunctionComponent, useState} from "react";
 import {useValidation} from "../index";
 
 class ContactFormValidation {

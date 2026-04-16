@@ -1,34 +1,26 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`context provider should mount correctly 1`] = `
+exports[`context > provider should mount correctly 1`] = `
 <form
   id="form"
-  onSubmit={[Function]}
 >
   <input
     id="fname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
   <input
     id="lname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
 </form>
 `;
 
-exports[`context validation error custom handler 1`] = `
+exports[`context > validation error custom handler 1`] = `
 <form
   id="form"
-  onSubmit={[Function]}
 >
   <input
     id="fname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
   <strong>
@@ -36,8 +28,6 @@ exports[`context validation error custom handler 1`] = `
   </strong>
   <input
     id="lname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
   <strong>
@@ -46,15 +36,12 @@ exports[`context validation error custom handler 1`] = `
 </form>
 `;
 
-exports[`context validation error on blur field 1`] = `
+exports[`context > validation error on blur field 1`] = `
 <form
   id="form"
-  onSubmit={[Function]}
 >
   <input
     id="fname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
   <strong>
@@ -62,28 +49,21 @@ exports[`context validation error on blur field 1`] = `
   </strong>
   <input
     id="lname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
 </form>
 `;
 
-exports[`context validation error on form submit 1`] = `
+exports[`context > validation error on form submit 1`] = `
 <form
   id="form"
-  onSubmit={[Function]}
 >
   <input
     id="fname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value="Nick"
   />
   <input
     id="lname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value=""
   />
   <strong>
@@ -92,21 +72,16 @@ exports[`context validation error on form submit 1`] = `
 </form>
 `;
 
-exports[`context validation success on form submit 1`] = `
+exports[`context > validation success on form submit 1`] = `
 <form
   id="form"
-  onSubmit={[Function]}
 >
   <input
     id="fname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value="Nick"
   />
   <input
     id="lname-input"
-    onBlur={[Function]}
-    onChange={[Function]}
     value="Fury"
   />
 </form>

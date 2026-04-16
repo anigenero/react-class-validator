@@ -1,24 +1,11 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": [
+    "@tsconfig/node24/tsconfig.json",
+    "@tsconfig/strictest/tsconfig.json"
+  ],
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "outDir": "./dist/",
-    "sourceMap": false,
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": false,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "declaration": true,
-    "declarationDir": "./dist/",
-    "declarationMap": false,
-    "inlineSourceMap": true,
-    "lib": [
-      "es2015",
-      "dom"
-    ]
+    "jsx": "react-jsx"
   },
   "exclude": [
     "node_modules"

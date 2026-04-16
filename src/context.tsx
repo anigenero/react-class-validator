@@ -1,5 +1,5 @@
 import {ValidationError} from "class-validator";
-import React, {createContext, FunctionComponent, PropsWithChildren} from "react";
+import {createContext, FunctionComponent, PropsWithChildren} from "react";
 
 export type ValidatorResultType = 'map' | 'boolean';
 
@@ -10,14 +10,14 @@ export type ValidatorContextOptions = {
 };
 
 const defaultOnErrorMessage: OnErrorMessageHandler = (error) =>
-    Object.keys(error.constraints).map((key) => error.constraints[key]);
+    Object.values(error.constraints ?? {}) as string[];
 
 const getDefaultContextOptions = (): ValidatorContextOptions => ({
     onErrorMessage: defaultOnErrorMessage,
     resultType: 'boolean',
 });
 
-export const ValidatorContext = createContext<ValidatorContextOptions>(null);
+export const ValidatorContext = createContext<ValidatorContextOptions>(getDefaultContextOptions());
 
 export const ValidatorProvider: FunctionComponent<PropsWithChildren<{ options?: ValidatorContextOptions }>> =
     ({options = getDefaultContextOptions(), children}) => (
