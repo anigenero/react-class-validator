@@ -10,48 +10,7 @@ Easy-to-use React hook for validating forms with the [class-validator](https://g
 npm install --save react-class-validator
 ```
 
-```typescript jsx
-
-const validatorOptions: ValidatorContextOptions = {
-    onErrorMessage: (error): string => {
-        // custom error message handling (localization, etc)
-    },
-    resultType: 'boolean' // default, can also be set to 'map'
-}
-
-render((
-    <ValidatorProvider options={validatorOptions}>
-        <MyComponent />
-    </ValidatorProvider>
-), document.getElementById('root'))
-```
-
-## Default onErrorMessage behavior
-The default behavior is to flatten all error constraints for each attribute.
-```typescript
-const getDefaultContextOptions = (): ValidatorContextOptions => ({
-    onErrorMessage: (error) => Object.keys(error.constraints).map((key) => error.constraints[key])
-});
-```
-
-### react-intl
-When using libraries such as [react-intl](https://github.com/formatjs/formatjs), you don't have to modify the existing 
-`onErrorMessage` handler. Decorators are handled at source load, so you only need to include the `intl.formatMessage` in your message definition.
-
-```typescript
-class Person {
-
-    @IsEmail({}, {
-        message: intl.formatMessage(defineMessage({defaultMessage: 'Invalid email'}))
-    })
-    @IsNotEmpty({
-        message: intl.formatMessage(defineMessage({defaultMessage: 'Email cannot be empty'}))
-    })
-    public email: string;
-    
-}
-
-```
+Peer dependencies: `react >= 17.0.0`
 
 ## Usage
 
@@ -63,50 +22,58 @@ import { IsNotEmpty } from "class-validator";
 class LoginValidation {
 
     @IsNotEmpty({
-        message: 'username cannot be empty'
+        message: 'Username cannot be empty'
     })
     public username: string;
 
     @IsNotEmpty({
-        message: 'password cannot be empty'
+        message: 'Password cannot be empty'
     })
     public password: string;
 
 }
 ```
 
-Set up your form component to validate using your validation class.  
+Use the `useValidation` hook in your component.
 
-```typescript jsx
-const MyComponent = () => {
+```tsx
+import { useValidation } from "react-class-validator";
+
+const LoginForm = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [validate, errors] = useValidation(LoginValidation);
+    const { validate, errors } = useValidation(LoginValidation);
 
     return (
         <form onSubmit={async (evt) => {
-
             evt.preventDefault();
-
-            // `validate` will return true if the submission is valid
-            if (await validate({username, password})) {
-                // ... handle valid submission
+            if (!(await validate({ username, password }))) {
+                // no validation errors — handle valid submission
             }
-
         }}>
 
-            {/* use a filter so that the onBlur function will only validate username */}
-            <input value={username} onChange={({target: {value}}) => setUsername(value)}
-                onBlur={() => validate({username}, ['username'])}/>
+            <input
+                value={username}
+                onChange={({ target: { value } }) => setUsername(value)}
+                onBlur={() => validate({ username }, ['username'])}
+            />
+            {errors?.username && errors.username.map((message, i) => (
+                <strong key={i}>{message}</strong>
+            ))}
 
-            {/* show error */}
-            {errors.username && (
-                <div className="error">
-                    {errors.username.map((message) => <strong>message</strong>)}
-                </div>
-            )}
+            <input
+                type="password"
+                value={password}
+                onChange={({ target: { value } }) => setPassword(value)}
+                onBlur={() => validate({ password }, ['password'])}
+            />
+            {errors?.password && errors.password.map((message, i) => (
+                <strong key={i}>{message}</strong>
+            ))}
+
+            <button type="submit">Login</button>
 
         </form>
     );
@@ -114,55 +81,60 @@ const MyComponent = () => {
 };
 ```
 
-## Usage With Formik
+## API
 
-`react-class-validator` easily integrates with [Formik](https://formik.org/). You can simply use the `validate` 
-function returned from `useValidation`, so long as the Formik fields are named the same as the keys in your validation 
-class. Individual fields will have to be validated with `onBlur` functionality.
+### `useValidation(validationClass)`
 
-### Formik error messages
+Returns an object with:
 
-To display error messages without custom handling, messages will need to be outputted as a map upon validation. 
-Do this by overriding the default `resultType` (you can also do this at the component-level).
+| Property   | Type | Description |
+|------------|------|-------------|
+| `validate` | `(payload, filter?) => Promise<errors \| undefined>` | Validates the payload against the class. Returns `undefined` when valid. |
+| `errors`   | `{ [key]: string[] } \| undefined` | Current validation errors keyed by property name. Each value is an array of error messages. |
 
-```typescript
-const options: ValidatorContextOptions = {
-    resultType: 'map'
-};
-```
+**Parameters:**
 
-Then you can simply integrate with the default Formik flow.
+- `payload` — an object with the fields to validate (keys should match the validation class properties)
+- `filter` (optional) — an array of property names to exclude from the error result, useful for single-field validation on blur
 
-```typescript jsx
-export const Login: FunctionComponent = () => {
+## Usage with Formik
 
-    const [validate] = useValidation(LoginValidation);
+The `validate` function can be passed directly to Formik's `validate` prop. Since it returns an error map keyed by property name (or `undefined` when valid), it integrates seamlessly.
+
+```tsx
+import { useValidation } from "react-class-validator";
+import { Field, Form, Formik } from "formik";
+
+const LoginForm = () => {
+
+    const { validate } = useValidation(LoginValidation);
 
     return (
-        <Formik initialValues={{username: '', password: ''}}
-                validateOnBlur
-                validateOnChange
-                validate={validate}>
-            {({values, touched, errors, handleChange, handleBlur}) => (
+        <Formik
+            initialValues={{ username: '', password: '' }}
+            validate={validate}
+            onSubmit={(values) => {
+                // handle valid submission
+            }}
+        >
+            {({ errors, touched }) => (
                 <Form>
-                    
-                    <label htmlFor="username">Username</label>
-                    <Field id="username" name="username" placeholder="Username" />
-
-                    {errors.username && touched.username ? (
+                    <Field name="username" placeholder="Username" />
+                    {errors.username && touched.username && (
                         <div>{errors.username}</div>
-                    ) : null}
-                    
-                    {/* other fields */}
-                    
-                    <button type="submit">
-                        Submit
-                    </button>
-                    
+                    )}
+
+                    <Field name="password" type="password" placeholder="Password" />
+                    {errors.password && touched.password && (
+                        <div>{errors.password}</div>
+                    )}
+
+                    <button type="submit">Submit</button>
                 </Form>
             )}
         </Formik>
     );
+
 };
 ```
 
