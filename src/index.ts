@@ -1,89 +1,57 @@
 import {validate} from 'class-validator';
-import {useContext, useState} from 'react';
-import {ValidatorContext, ValidatorContextOptions} from "./context";
-
-export {ValidatorProvider} from './context';
-export type {ValidatorContextOptions, OnErrorMessageHandler} from './context';
+import {useCallback, useState} from 'react';
 
 type Newable<T> = {
     new(): T;
 } | Function;
 
-type ValidationOptions = Pick<ValidatorContextOptions, 'resultType'>;
 type ValidationErrorMap<T, K extends keyof T> = { [key in K]?: string[] };
 type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
 type ValidationFunction<T, K extends keyof T> = (payload: ValidationPayload<T, K>, filter?: K[]) =>
-    Promise<ValidationErrorMap<T, K> | boolean>;
-type UseValidationResult<T, K extends keyof T> = [ValidationFunction<T, K>, ValidationErrorMap<T, K>];
+    Promise<ValidationErrorMap<T, K> | undefined>;
+
+interface UseValidationResult<T, K extends keyof T> {
+    readonly validate: ValidationFunction<T, K>;
+    readonly errors: ValidationErrorMap<T, K> | undefined;
+}
 
 export const useValidation = <T, K extends keyof T>(
-    validationClass: Newable<T>,
-    opts: ValidationOptions = {}
+    validationClass: Newable<T>
 ): UseValidationResult<T, K> => {
 
-    const {onErrorMessage, resultType} = useContext(ValidatorContext);
-    opts = {
-        ...opts,
-        resultType: opts.resultType ?? resultType ?? 'boolean'
-    }
+    const [validationErrors, setErrors] = useState<ValidationErrorMap<T, K> | undefined>(void 0);
 
-    const [validationErrors, setErrors] = useState<ValidationErrorMap<T, K>>({});
-
-    const resolveErrors = (errors: ValidationErrorMap<T, K>) => {
-        if (errors && Object.keys(errors).length === 0 && errors.constructor === Object) {
-            return opts.resultType === 'boolean' ? true : errors;
-        } else {
-            return opts.resultType === 'boolean' ? false : errors;
-        }
-    }
-
-    const validateCallback: ValidationFunction<T, K> = async (payload, filter: K[] = []) => {
+    const validateCallback: ValidationFunction<T, K> = useCallback(async (payload, filter: K[] = []) => {
 
         let errors = await validate(Object.assign(new (validationClass as any)(), payload));
         if (errors.length === 0) {
 
-            setErrors({});
-            return resolveErrors({});
+            setErrors(void 0);
+            return void 0;
 
         } else {
 
-            if (filter.length > 0) {
-                errors = errors.filter((err) => filter.includes(err.property as K));
-            }
+            const filteredErrors =
+                Object.entries(errors ?? {}).filter(([key]) =>
+                    !filter.includes(key as K)
+                ).reduce((accum, [key, error]) => ({
+                    ...accum,
+                    [key]: error
+                }), {});
 
-            const validation: ValidationErrorMap<T, K> = errors.reduce(
-                (acc, value) => ({
-                    ...acc,
-                    [value.property as K]: onErrorMessage!(value)
-                }),
-                {} as ValidationErrorMap<T, K>
-            );
+            setErrors({
+                ...filteredErrors
+            });
 
-            if (filter.length > 0) {
-
-                const filteredErrors =
-                    (Object.keys(validationErrors) as K[]).filter((key) =>
-                        !filter.includes(key)
-                    ).reduce((accum, key) => ({
-                        ...accum,
-                        [key]: validationErrors[key]
-                    }), {});
-
-                setErrors({
-                    ...filteredErrors,
-                    ...validation
-                });
-
-            } else {
-                setErrors(validation);
-            }
-
-            return resolveErrors(validation);
+            return filteredErrors;
 
         }
 
-    };
+    }, [validationClass, validationErrors]);
 
-    return [validateCallback, validationErrors];
+    return {
+        validate: validateCallback,
+        errors: validationErrors
+    }
 
 };

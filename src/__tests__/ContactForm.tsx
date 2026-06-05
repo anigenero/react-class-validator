@@ -1,6 +1,6 @@
 import {IsNotEmpty} from "class-validator";
 import {FunctionComponent, useState} from "react";
-import {useValidation} from "../index";
+import {useValidation} from "../index.js";
 
 class ContactFormValidation {
 
@@ -21,7 +21,10 @@ export const ContactForm: FunctionComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const [validate, errorMessages] = useValidation(ContactFormValidation);
+    const {
+        validate,
+        errors
+    } = useValidation(ContactFormValidation);
 
     return (
         <form id="form" onSubmit={async (evt) => {
@@ -30,12 +33,12 @@ export const ContactForm: FunctionComponent = () => {
         }}>
             <input id="fname-input" value={firstName} onChange={({target: {value}}) => setFirstName(value)}
                    onBlur={() => validate({firstName}, ['firstName'])}/>
-            {errorMessages.firstName && errorMessages.firstName.map((error, index) => (
+            {errors?.firstName && errors.firstName.map((error, index) => (
                 <strong key={index}>{error}</strong>
             ))}
             <input id="lname-input" value={lastName} onChange={({target: {value}}) => setLastName(value)}
                    onBlur={() => validate({lastName}, ['lastName'])}/>
-            {errorMessages.lastName && errorMessages.lastName.map((error, index) => (
+            {errors?.lastName && errors.lastName.map((error, index) => (
                 <strong key={index}>{error}</strong>
             ))}
         </form>

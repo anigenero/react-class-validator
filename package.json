@@ -1,8 +1,10 @@
 {
   "name": "react-class-validator",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "React hook for validation with class-validator",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "lint": "eslint src --ext .ts,.tsx",
@@ -28,27 +30,34 @@
   },
   "homepage": "https://github.com/anigenero/react-class-validator#readme",
   "peerDependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react": ">=17.0.0"
   },
   "devDependencies": {
-    "@swc/core": "^1.15.21",
+    "@eslint/compat": "^2.1.0",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@testing-library/react": "^16.0.0",
     "@tsconfig/node24": "^24.0.4",
     "@tsconfig/strictest": "^2.0.8",
-    "@types/react": "^19.2.14",
+    "@types/node": "^24.13.0",
+    "@types/react": ">=17.0.0",
+    "@types/react-dom": ">=17.0.0",
     "@types/validator": "^13.15.10",
-    "@typescript-eslint/parser": "^8.57.2",
-    "@vitest/coverage-v8": "^3.0.0",
-    "eslint": "^10.1.0",
+    "@typescript-eslint/parser": "^8.60.1",
+    "@vitest/coverage-v8": "^4.1.8",
+    "eslint": "^10.4.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
     "jsdom": "^26.0.0",
     "reflect-metadata": "^0.2.2",
-    "typescript": "^6.0.2",
+    "react-dom": ">=17.0.0",
+    "typescript": "^6.0.3",
     "unplugin-swc": "^1.5.9",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.8"
   },
   "dependencies": {
     "class-validator": "^0.15.1"
