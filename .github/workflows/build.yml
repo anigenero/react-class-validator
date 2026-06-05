@@ -35,7 +35,7 @@ jobs:
         run: pnpm run test
       - name: 🛳️ Publish
         if: ${{ github.event_name == 'release' }}
-        run: pnpm publish
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: 📊 Upload Coverage
