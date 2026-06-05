@@ -4,13 +4,19 @@ src/
 node_modules/
 coverage/
 
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+.npmrc
+.nvmrc
+
 CODE_OF_CONDUCT.md
 CONTRIBUTING.md
 
-.eslintrc.json
+.eslint.config.ts
 .gitignore
 .travis.yml
 tsconfig.json
+tsconfig.test.json
 
-jest.config.js
-jest.setup.ts
+vite.config.ts
