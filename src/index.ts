@@ -1,9 +1,7 @@
 import {validate} from 'class-validator';
 import {useCallback, useState} from 'react';
 
-type Newable<T> = {
-    new(): T;
-} | Function;
+type Newable<T> = new() => T;
 
 type ValidationErrorMap<T, K extends keyof T> = { [key in K]?: string[] };
 type ValidationPayload<T, K extends keyof T> = { [key in K]?: T[K] };
@@ -23,7 +21,7 @@ export const useValidation = <T, K extends keyof T>(
 
     const validateCallback: ValidationFunction<T, K> = useCallback(async (payload, filter: K[] = []) => {
 
-        let errors = await validate(Object.assign(new (validationClass as any)(), payload));
+        const errors = await validate(Object.assign(new (validationClass as any)(), payload));
         if (errors.length === 0) {
 
             setErrors(void 0);
@@ -52,6 +50,6 @@ export const useValidation = <T, K extends keyof T>(
     return {
         validate: validateCallback,
         errors: validationErrors
-    }
+    };
 
 };

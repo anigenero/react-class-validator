@@ -1,6 +1,6 @@
-import {IsNotEmpty} from "class-validator";
-import {FunctionComponent, useState} from "react";
-import {useValidation} from "../index.js";
+import {IsNotEmpty} from 'class-validator';
+import {FunctionComponent, useState} from 'react';
+import {useValidation} from '../index.js';
 
 class ContactFormValidation {
 
