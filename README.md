@@ -87,10 +87,10 @@ const LoginForm = () => {
 
 Returns an object with:
 
-| Property   | Type | Description |
-|------------|------|-------------|
-| `validate` | `(payload, filter?) => Promise<errors \| undefined>` | Validates the payload against the class. Returns `undefined` when valid. |
-| `errors`   | `{ [key]: string[] } \| undefined` | Current validation errors keyed by property name. Each value is an array of error messages. |
+| Property   | Type                                                 | Description                                                                                 |
+|------------|------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `validate` | `(payload, filter?) => Promise<errors \| undefined>` | Validates the payload against the class. Returns `undefined` when valid.                    |
+| `errors`   | `{ [key]: string[] } \| undefined`                   | Current validation errors keyed by property name. Each value is an array of error messages. |
 
 **Parameters:**
 
