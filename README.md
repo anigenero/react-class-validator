@@ -2,7 +2,6 @@
 Easy-to-use React hook for validating forms with the [class-validator](https://github.com/typestack/class-validator) library.
 
 [![Build Status](https://github.com/anigenero/react-class-validator/actions/workflows/build.yml/badge.svg)](https://github.com/anigenero/react-class-validator/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/anigenero/react-class-validator/branch/master/graph/badge.svg)](https://codecov.io/gh/anigenero/react-class-validator)
 
 ## Installation
 
